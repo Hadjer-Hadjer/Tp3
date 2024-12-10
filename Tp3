@@ -8,11 +8,10 @@ Element*Liste=NUUL
 
 Liste*Créer Liste Vide(void) 
 {
-Liste*nouveau Liste=malloc(sizeof(Liste));
 if(nouveau!=NULL)
 {
-nouveau Liste>tête=NULL;
-nouveau Liste -> queue = NULL;
+nouveau Liste->valeur=NULL;
+nouveau Liste -> suivant= NULL;
 }
 return nouveau;
 }
