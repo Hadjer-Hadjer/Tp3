@@ -1,94 +1,99 @@
-#include<stdio.h>
-#include<stdlib.h>
-type def struct element{
-struct element*suivant;
-intval;
-}Element;
-Element*Liste=NUUL
+#include <stdio.h>
+#include <stdlib.h>
 
-Liste*Créer Liste Vide(void) 
-{
-if(nouveau!=NULL)
-{
-nouveau Liste->valeur=NULL;
-nouveau Liste -> suivant= NULL;
-}
-return nouveau;
+// تعريف هيكل العنصر في القائمة
+typedef struct element {
+    int valeur;
+    struct element* suivant;
+} element;
+
+// وظيفة لإنشاء قائمة فارغة
+element* creerListe() {
+    return NULL; // إرجاع قائمة فارغة
 }
 
-void afficher Liste(Liste*L){
- if(L != NULL)
- { while(L != NULL){
-
-  L = L->suivant}
- else
-   printf("la liste est vide");
- }
-}
-
+// وظيفة لتحميل البيانات من المصفوفة إلى القائمة
 element* chargerListe(int Tab[], int taille, element* liste) {
     for (int i = 0; i < taille; i++) {
-        element* nouveau = (element*)malloc(sizeof(element));
-        nouveau->valeur = Tab[i];
-        nouveau->suivant = liste;
-        liste = nouveau;
+        element* nouveau = (element*)malloc(sizeof(element); //  لإنشاء عقدة جديدةmalloc حجز مساحة في الذاكرة باستخدام 
+        nouveau->valeur = Tab[i];   // nouvau-> valeur نضع قيمة العنصر في 
+        nouveau->suivant = liste;  //  نربط العقدة الجديدة بالقاىءمة عن طريق
+        liste = nouveau;//  يتم تحديث راءس القاىءمة ليصبح هو العقدة الجديدة
     }
-    return Liste;
+    return liste;//يتم إرجاع راءس القاىءمة بعد تحميل جميع العناصر
 }
 
+// وظيفة لعرض عناصر القائمة
+void afficherListe(element* liste) {
+    element* courant = liste;// للمرور عبر جميع عناصر القاىءمةcourant نقوم باستخدام مؤشر
+    while (courant != NULL){ //نبداء من راءس القاىءمة
+        printf("%d \t ", courant->valeur);//نقوم بطباعة كل عقدة 
+        courant = courant->suivant;// بعد طباعة كل قيمة ننتقل إلى العقدة التالية باستخدام 
+    }
+    printf("NULL\n"); // للدلالة على نهاية القاىءمةNUUL نقوم بطباعة NUUL عندما نصل إلى العقدة التي مؤشرها
 
-Element*AjouterDebut(Element*liste,intvaleur){
-returnnouveau;/*Lalistepointetoujourssurlatˆete*/.
-nouveau>suivant=liste;
-nouveau>val=valeur;
-Element*nouveau=malloc(sizeof(Element));
-}
-
-Element*SupprimerEnFin(Element*liste){
-vide)*/
-Element*courant=liste,*tempo;
-While(courant->suivant!=NULL){
-tempo=courant;
-free(liste);/*Onlelib`ereetonretourneNULL(lalisteestmaintenant
-}
-tempo->suivant=courant->suivant;
-Courant=malloc(sizeof(Element));
-returnNULL;
-if(liste>suivant==NULL){/*Silalistecontientunseul´el´ement*/
-returnNULL;
-}
-free(courant);
-if(liste==NULL)/*Silalisteestvide,onretourneNULL*/
-Courant=courant->suivant;
-returnliste;    
+// وظيفة لحذف عنصر من نهاية القائمة
+element* supprimerEnFin(element* liste) {
+    if (liste == NULL) return NULL;  // NUULاذا كانت القاىءمة فارغة نعيد 
+    if (liste->suivant == NULL) {  //إذا كانت تحتوي على عنصر واحد فقط ، نحذف هاذا العنصر ونعيد القاىءمة فارغة
+        free(liste);//تحرير الذاكرة
+        return NULL;
+    }
+    element* courant = liste;//
+    while (courant->suivant->suivant != NULL) { // العنصر ما قبل الاخير
+        courant = courant->suivant;//ندير فيه المتغير نتاع الاخير
+    }
+    free(courant->suivant);//تحرير الذاكرة
+    courant->suivant = NULL;// NULL المتغير نتاع الاخير نديره
+    return liste;//إرجاع العقدة بعد التغيير
 }
 
-Liste*vider Liste(Liste*L){
- Liste*temp = L;
- if(L == NULL)
-   printf("la liste est vide")
- else
-   while(L!=NULL)
-   { L = L -> suivant ;
-    free(temp);
-    temp = L;
-   }
- }   
- return L ;
-}  
- 
+// وظيفة لإضافة عنصر في بداية القائمة
+element* ajouterEnDebut(element* liste, int valeur) {
+    element* nouveau = (element*)malloc(sizeof(element));//malloc نقوم بانشاء عقدة جديدة باستخدام  
+    nouveau->valeur = valeur;//نضع القيمة الجديدة 
+    nouveau->suivant = liste;//يشير إلى راءس القاىءمة الحاليةnouveau -> suivant نجعل
+    return nouveau;//إرجاع العقدة الجديدة
+}
+
+// وظيفة لتفريغ القائمة
+void viderListe(element* liste) {
+    element* courant = liste;//courant  نمر عبر القاىءمة باستخدام المؤشر 
+    while (courant != NULL) {
+        element* temp = courant;//temp نحفظ العقدة الحالية في متغير مؤقت
+        courant = courant->suivant;//ننتقل إلى العقدة التالي
+        free(temp);// تحرير القاىءمة من الذاكرة
+    }
+    printf("La liste est vide.\n");// نطبع رسالة على أن القاىءمة فارغة
+}
+
 int main() {
-    int Tab[10] = {1, 3, 5, 7, 8, 10, 9, 11, 13, 20};
-    element* liste = creerListe();
-    liste = chargerListe(Tab, 10, liste);
-    afficherListe(liste);
+    int Tab[10] = {1, 3, 5, 7, 8, 9, 10, 11, 13, 20};
+    element* L1 = creerListe();  // إنشاء قائمة فارغة
+    element* L2;
 
-    liste = supprimerEnFin(liste);
-    afficherListe(liste);
+    // تحميل البيانات إلى القائمة
+    L1 = chargerListe(Tab, 10, L1);
 
-    liste = ajouterEnDebut(liste, 40);
-    afficherListe(liste);
+    // عرض القائمة
+    printf("Contenu de L1 apres chargement :\n");
+    afficherListe(L1);
 
-    viderListe(liste);
+    // حذف عنصر من نهاية القائمة
+    L1 = supprimerEnFin(L1);
+    printf("Contenu de L1 apres suppression en fin :\n");
+    afficherListe(L1);
+
+    // إضافة عنصر في بداية القائمة
+    L2 = ajouterEnDebut(L1, 40);
+    printf("Contenu de L2 apres ajout en debut :\n");
+    afficherListe(L2);
+
+    // تفريغ القائمتين
+    printf("Vidage de L1 :\n");
+    viderListe(L1);
+    printf("Vidage de L2 :\n");
+    viderListe(L2);
+
     return 0;
 }
